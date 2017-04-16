@@ -73,29 +73,55 @@ class Department(object):
 class Accounting(Department):
     ''' Accounting is a subclass of the Department class
 
-    methods: __init__, payroll
+    methods: __init__, payroll_help
     '''
     def __init__(self, name, payroll)
         super().__init__()
         self.name = name
         self.payroll = list()
 
-    def payroll(self, payroll):
-        ''' Lists the names of employees responsible for payroll
+    def payroll_help(self, payroll=None):
+        ''' From a list of the team gives you the name of 
+        someone who can help you with payroll
        
         Arguments:
         payroll - string
         '''
-        return self.payroll
+        team_list = ["Adrian, Bob, Darren, Alice, Leslie, Caitlin, Bill, Alex"]
+        random_name = team_list[random.randrange(len(team_list))]
+        if payroll is not None:
+            print("{} will be able to help you will your payroll needs".format(random_name))
+        else:
+            print("please call the payroll department at 555-555-5555 to be helped with your payroll needs.")
 
 
 class Sales(Department):
     ''' Sales is a subclass of the Department class
     
-    Arguments:
-    
+    Methods: __init__, set_goal
     
      '''
-    def __init__(self, name, goals, history)
+    def __init__(self, name, number)
+        super().__init__()
+        self.name = name
+        self.number = number 
+
+    @goal.setter
+    def set_goal(self,val)
+        if val is not isinstance(val, int):
+            raise TypeError("Please provide a string value for the supervisor name")
+        else:
+        self.set_goal = val               
+
+    @property
+    def get_goal(self):
+        try:
+            return self.set_goal
+    except AttributeError:
+                return ""
+
+
+
+
 
 

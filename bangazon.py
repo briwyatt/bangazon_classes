@@ -1,124 +1,122 @@
+# Create a Department class. Create some simple properties and methods on Department. 
+# You are going to create some derived classes that inherit from Department, 
+# so make sure that the properties/methods you add are general to all Departments.
+
 class Department(object):
 
-    def __init__(self, name, number, department, supervisor):
+    def __init__(self, name, supervisor, location, employee_count):
         self.name = name
-        self.number = number
-        self.department = department
         self.supervisor = supervisor
+        self.location = location
+        self.employee_count = employee_count
+        self.budget = 100000
+    def get_dept_name(self):
+        return self.name
 
-        @property
-        def get_name(self):
-            try:
-                return self.__name
-            except AttributeError:
-                return ""
+    def count_employees(self):
+        return self.employee_count
 
-        @property 
-        def getNumber(self):
-            try:
-                return self.__number
-            except AttributeError
-                return ""
+    def find_department(self):
+        return self.location
 
-        @property
-        def getDepartment(self):
-            try: 
-                return self.__department
-            except AttributeError:
-                return ""
+    def find_supervisor(self):
+        return self.supervisor
 
-        @property
-        def getSupervisor(self):
-            try:
-                return self.__supervisor
-            except AttributeError:
-                return ""
+     
+    def get_employees(self):
+        return self.employees
 
-        @property 
-        def employee_details(self):
-            return "{} is an employee in {} department with {} as his/her supervisor.".format(self.name, self.department, self.supervisor)
+    def add_employees(self, employee):
+        self.employees.append(employee) 
 
-        @name.setter
-        def employee_name(self, val):
-            if isinstance(val, str):
-                raise TypeError("Please provide a string for the name of the Employee")
+    def meet(self):
+        return "Meet in the conference room for an important presentation."
 
-            if val is not "" and len(val) > 1:
-                self.__name = val
-            else:
-                raise ValueError("Please provide a department name")
-
-        @number.setter
-        def employee_number(self, val):
-            if isinstance(val, int):
-                raise TypeError("Please provide a number for the employee ID number")
-
-            if val is not "" and len(val)> 1:
-                self.__number = val
-            else:
-                raise ValueError("Please provide your employee number")
-
-        @department.setter
-        def employee_department(self, val)
-            if isinstance(val, str):
-                raise TypeError("Please provide a string for name of department")
-
-        @manager.setter
-        def manager(self,val):                
-            if val is not isinstance(val, str):
-                raise TypeError("Please provide a string value for the supervisor name")
-            else:
-                self. __supervisor = val
-
-class Accounting(Department):
-    ''' Accounting is a subclass of the Department class
-
-    methods: __init__, payroll_help
-    '''
-    def __init__(self, name, payroll)
-        super().__init__()
-        self.name = name
-        self.payroll = list()
-
-    def payroll_help(self, payroll=None):
-        ''' From a list of the team gives you the name of 
-        someone who can help you with payroll
-       
-        Arguments:
-        payroll - string
-        '''
-        team_list = ["Adrian, Bob, Darren, Alice, Leslie, Caitlin, Bill, Alex"]
-        random_name = team_list[random.randrange(len(team_list))]
-        if payroll is not None:
-            print("{} will be able to help you will your payroll needs".format(random_name))
-        else:
-            print("please call the payroll department at 555-555-5555 to be helped with your payroll needs.")
+    def get_budget(self):
+        return self.budget
 
 
 class Sales(Department):
-    ''' Sales is a subclass of the Department class
-    
-    Methods: __init__, set_goal
-    
-     '''
-    def __init__(self, name, number)
-        super().__init__()
-        self.name = name
-        self.number = number 
 
-    @goal.setter
-    def set_goal(self,val)
-        if val is not isinstance(val, int):
-            raise TypeError("Please provide a string value for the supervisor name")
-        else:
-        self.set_goal = val               
+    def __init__(self, name, supervisor, location, employee_count):
+        super().__init__(name, supervisor,location, employee_count)
+        self.awards = ()
+        self.budget = super().get_budget() - 7000
+        self.employees = [self.supervisor]  
 
-    @property
-    def get_goal(self):
-        try:
-            return self.set_goal
-    except AttributeError:
-                return ""
+
+    def add_awards(self, award_name, award_year):
+
+        self.awards.add("Dundie Award", "2006")
+
+
+class Customer_Service(Department):
+
+    def __init__(self, name, supervisor, location, employee_count):
+        super().__init__(name, supervisor,location, employee_count)
+        self.refund_policies = list()
+        self.budget = super().get_budget() + -2000
+        self.employees = [self.supervisor]  
+
+    def add_policies(self, policy_name, policy_content):
+        self.refund_policies.append(("No Refunds for Golden Ticket items"))
+
+class Accounting(Department):
+
+    def __init__(self, name, supervisor, location, employee_count):
+        super().__init__(name, supervisor,location, employee_count)
+        self.employees = [self.supervisor]  
+
+        self.budget = super().get_budget() -2500
+
+class Human_Resources(Department):
+
+    def __init__(self, name, supervisor, location, employee_count):
+        super().__init__(name, supervisor,location, employee_count)
+        self.computers = ()
+        self.employees = [self.supervisor]  
+
+
+        self.budget = super().get_budget() -3000
+
+    def add_computer_equipment(self, computer_type):
+
+        self.add_computer_equipment(computer_type)
+
+
+if __name__ == '__main__':
+    # main()
+
+    sales = Sales("Sales", "Dwight Schrute", "Middle of the Room", 4)
+    customer_service = Customer_Service("Customer Service", "Kelly Kapoor", "The Appendix", 1)
+    accounting = Accounting("Accounting", "Oscar Martinez", "Left Corner", 10)
+    HR = Human_Resources("Human Resources", "Toby Flenderson", "The Appendix", 1)
+
+    print(sales.name)
+    print(customer_service.name)
+    print(accounting.name)
+    print(HR.name)
+
+    sales.add_employees ("Pam Beesly")
+    sales.add_employees("Jim Halpert")
+    sales.add_employees("Andy Bernard")
+    print(sales.get_employees())
+
+    print(customer_service.get_employees())
+
+    accounting.add_employees("Angela Martin")
+    accounting.add_employees("Kevin Malone")
+    print(accounting.get_employees())
+
+    HR.add_employees("Holly Flax")
+    print(HR.get_employees())
+
+    print("sales budget = ", sales.budget)
+    print("customer_service budget = ", customer_service.budget)
+    print("accounting budget = ", accounting.budget)
+    print("HR budget = ", HR.budget)
+
+
 
 
 

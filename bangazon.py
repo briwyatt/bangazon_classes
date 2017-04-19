@@ -118,7 +118,7 @@ class Employee_Location(Employee):
         self.location = location
 
     def find_location(self):
-        return "{}'s desk is located at {}".format(self.fullname, self.location)
+        return "{}'s desk is located at {}".format(self.full_name, self.location)
 
 
 class FullTime():
@@ -172,7 +172,7 @@ if __name__ == '__main__':
 
     HR.add_employees("Holly Flax")
 
-    print(ryan_location.find_location)
+    print(ryan_location.find_location())
     print(sales.name)
     print(customer_service.name)
     print(accounting.name)
@@ -197,6 +197,13 @@ if __name__ == '__main__':
     sales.remove_employee("Ryan Howard")
     sales.remove_employee("Pam Beesly")
     print("Sales Team after Michael Scott Paper Company est. 2009: ", sales.get_employees())
+
+
+
+
+
+
+
 
 
 

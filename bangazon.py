@@ -5,10 +5,9 @@ import random
 
 class Department(object):
 
-    def __init__(self, name, supervisor, location, employee_count):
+    def __init__(self, name, supervisor, employee_count):
         self.name = name
         self.supervisor = supervisor
-        self.location = location
         self.employee_count = employee_count
         self.budget = 100000
 
@@ -18,18 +17,18 @@ class Department(object):
     def count_employees(self):
         return self.employee_count
 
-    def find_department(self):
-        return self.location
-
     def find_supervisor(self):
         return self.supervisor
-
      
     def get_employees(self):
         return self.employees
 
     def add_employees(self, employee):
         self.employees.append(employee) 
+        return
+
+    def remove_employee(self, employee):
+        self.employees.remove(employee)
 
     def meet(self):
         return "Meet in the conference room for an important presentation."
@@ -40,8 +39,8 @@ class Department(object):
 
 class Sales(Department):
 
-    def __init__(self, name, supervisor, location, employee_count):
-        super().__init__(name, supervisor,location, employee_count)
+    def __init__(self, name, supervisor,  employee_count):
+        super().__init__(name, supervisor, employee_count)
         self.awards = ()
         self.budget = super().get_budget() - 7000
         self.employees = [self.supervisor]  
@@ -55,8 +54,8 @@ class Sales(Department):
 
 class Customer_Service(Department):
 
-    def __init__(self, name, supervisor, location, employee_count):
-        super().__init__(name, supervisor,location, employee_count)
+    def __init__(self, name, supervisor, employee_count):
+        super().__init__(name, supervisor, employee_count)
         self.refund_policies = list()
         self.budget = super().get_budget() + -2000
         self.employees = [self.supervisor]  
@@ -69,8 +68,8 @@ class Customer_Service(Department):
    
 class Accounting(Department):
 
-    def __init__(self, name, supervisor, location, employee_count):
-        super().__init__(name, supervisor,location, employee_count)
+    def __init__(self, name, supervisor,  employee_count):
+        super().__init__(name, supervisor, employee_count)
         self.employees = [self.supervisor]  
 
     def meet(self):
@@ -80,8 +79,8 @@ class Accounting(Department):
 
 class Human_Resources(Department):
 
-    def __init__(self, name, supervisor, location, employee_count):
-        super().__init__(name, supervisor,location, employee_count)
+    def __init__(self, name, supervisor, employee_count):
+        super().__init__(name, supervisor, employee_count)
         self.computers = ()
         self.employees = [self.supervisor]  
         self.budget = super().get_budget() -3000
@@ -112,9 +111,33 @@ class Employee(object):
         else:
             return "{} ate {} with {}".format(self.full_name, food, ", ".join(companions))
 
+
+class Employee_Location(Employee):
+    def __init__(self, first_name, last_name, location):
+        super().__init__(first_name, last_name)
+        self.location = location
+
+    def find_location(self):
+        return "{}'s desk is located at {}".format(self.fullname, self.location)
+
+
+class FullTime():
+  """Describes full-time employees"""
+  def __init__(self):
+    self.hours_per_week = 40
+
+class PartTime():
+  """Describes part-time employees"""
+  def __init__(self):
+    self.hours_per_week = 24
+
+class Warehouse(Employee, PartTime):
+    pass
+
+
+
 employee = Employee("Bri", "Wyatt")
 eat = employee.eat
-
 
 print(eat())
 # example output: Bri Wyatt ate at Poor Richards
@@ -126,19 +149,15 @@ print(eat("pizza", ["Sam", "Dean", "Alice"]))
 # example output: Bri Wyatt ate a pizza alone in the breakroom.
 
 
-
 if __name__ == '__main__':
     # main()
 
-    sales = Sales("Sales", "Dwight Schrute", "Middle cubicles of the Office", 4)
-    customer_service = Customer_Service("Customer Service", "Kelly Kapoor", "The Annex", 1)
-    accounting = Accounting("Accounting", "Oscar Martinez", "Left Corner cubicles", 10)
-    HR = Human_Resources("Human Resources", "Toby Flenderson", "The Annex", 1)
 
-    print(sales.name)
-    print(customer_service.name)
-    print(accounting.name)
-    print(HR.name)
+    sales = Sales("Sales", "Dwight Schrute", 4)
+    customer_service = Customer_Service("Customer Service", "Kelly Kapoor", 1)
+    accounting = Accounting("Accounting", "Oscar Martinez",  10)
+    HR = Human_Resources("Human Resources", "Toby Flenderson",  1)
+    ryan_location = Employee_Location("Ryan", "Howard", "hall-way closet")
 
     sales.add_employees ("Pam Beesly")
     sales.add_employees("Jim Halpert")
@@ -150,8 +169,14 @@ if __name__ == '__main__':
     accounting.add_employees("Angela Martin")
     accounting.add_employees("Kevin Malone")
 
+
     HR.add_employees("Holly Flax")
 
+    print(ryan_location.find_location)
+    print(sales.name)
+    print(customer_service.name)
+    print(accounting.name)
+    print(HR.name)
 
     print("Sales Employees: ", sales.get_employees())
     print("Customer Service: ", customer_service.get_employees())
@@ -168,4 +193,15 @@ if __name__ == '__main__':
     print(sales.meet())
     print(customer_service.meet())
     print(HR.meet())
+
+    sales.remove_employee("Ryan Howard")
+    sales.remove_employee("Pam Beesly")
+    print("Sales Team after Michael Scott Paper Company est. 2009: ", sales.get_employees())
+
+
+
+
+
+
+
 
